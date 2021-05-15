@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
     },
     problem_solved: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "problem",
     },
 });
 
