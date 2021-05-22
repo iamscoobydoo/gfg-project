@@ -1,6 +1,6 @@
 require("dotenv").config({ path: "../.env" });
 const express = require("express");
-const Problem = require("../../models/Problem");
+const Problems = require("../../models/Problems");
 
 const router = express.Router();
 
@@ -10,8 +10,8 @@ const router = express.Router();
 router.post("/all", async (req, res) => {
     const { topic_name, problem_list } = req.body;
     try {
-        problem = new Problem({ topic_name, problem_list });
-        await problem.save();
+        problems = new Problems({ topic_name, problem_list });
+        await problems.save();
         return res.status(200).json({ msg: "Added!" });
     } catch (err) {
         console.log(err.message);
