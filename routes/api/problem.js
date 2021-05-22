@@ -12,6 +12,7 @@ router.post("/all", async (req, res) => {
     try {
         problem = new Problem({ topic_name, problem_list });
         await problem.save();
+        return res.status(200).json({ msg: "Added!" });
     } catch (err) {
         console.log(err.message);
         return res.status(500).send("Server error");
