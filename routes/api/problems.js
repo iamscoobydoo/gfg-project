@@ -19,4 +19,19 @@ router.post("/all", async (req, res) => {
     }
 });
 
+//@route    GET api/problems/:topic
+//@desc     Fetch problems list by name
+//@access   Public
+router.get("/:topic", async (req, res) => {
+    try {
+        const { topic_name, problem_list } = await Problems.findOne({
+            topic_name: req.params.topic,
+        });
+        return res.status(200).json({ problem_list });
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send("Server error");
+    }
+});
+
 module.exports = router;
