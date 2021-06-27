@@ -14,7 +14,7 @@ const router = express.Router();
 //@access   Public
 router.get("/", auth, async (req, res) => {
     try {
-        const user = await Users.findById(req.user.id).select("-password");
+        const user = await User.findById(req.user.id).select("-password");
         return res.json(user);
     } catch (err) {
         console.error(err.message);
@@ -39,7 +39,7 @@ router.post(
 
         const { email, password } = req.body;
         try {
-            let user = await Users.findOne({ email });
+            let user = await User.findOne({ email });
             if (!user) {
                 return res.status(400).json({ errors: [{ msg: "Invalid credentials" }] });
             }
