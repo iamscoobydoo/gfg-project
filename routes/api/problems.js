@@ -2,12 +2,13 @@ require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const Problems = require("../../models/Problems");
 
+const auth = require("../../middleware/auth");
 const router = express.Router();
 
 //@route    POST api/problems/all
 //@desc     Add all problems to DB
 //@access   me :)
-router.post("/all", async (req, res) => {
+router.post("/all", auth, async (req, res) => {
     const { topic_name, problem_list } = req.body;
     try {
         problems = new Problems({ topic_name, problem_list });
@@ -21,8 +22,8 @@ router.post("/all", async (req, res) => {
 
 //@route    GET api/problems/:topic
 //@desc     Fetch problems list by name
-//@access   Public
-router.get("/:topic", async (req, res) => {
+//@access   Private
+router.get("/:topic", auth, async (req, res) => {
     try {
         const { topic_name, problem_list } = await Problems.findOne({
             topic_name: req.params.topic,
